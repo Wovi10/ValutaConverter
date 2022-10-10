@@ -7,7 +7,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+
 public class ValutaConverter extends Application {
+    ArrayList<Valuta> Currencies = initiateCurrencies();
 
     public static void main(String[] args) {
         launch(args);
@@ -18,19 +21,40 @@ public class ValutaConverter extends Application {
         primaryStage.setTitle("Valuta Converter");
         Group root = new Group();
         Scene scene = new Scene(root, 300, 250);
-        setButtons(root);
+        setupForm(root);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
-    private void setButtons(Group root) {
+    private void setupForm(Group root) {
         Button convertButton = createConvertButton();
+        ComboBox<Object> valutaFrom_CB = createFirstComboBox();
+        ComboBox<Object> valutaTo_CB = createSecondComboBox();
+        fillComboBox(valutaFrom_CB);
+        fillComboBox(valutaTo_CB);
         root.getChildren().add(convertButton);
-        ComboBox valutaFrom_CB = createFirstComboBox();
+        root.getChildren().add(valutaFrom_CB);
+        root.getChildren().add(valutaTo_CB);
     }
 
-    private ComboBox createFirstComboBox() {
-        return null;
+    private void fillComboBox(ComboBox<Object> comboBox){
+        for (Valuta valuta: Currencies) {
+            comboBox.getItems().add(valuta);
+        }
+    }
+    private ComboBox<Object> createSecondComboBox() {
+        ComboBox<Object> valutaComboBox = new ComboBox<>();
+        valutaComboBox.setLayoutX(150);
+        valutaComboBox.setLayoutX(80);
+
+        return valutaComboBox;
+    }
+
+    private ComboBox<Object> createFirstComboBox() {
+        ComboBox<Object> valutaComboBox = new ComboBox<>();
+        valutaComboBox.setLayoutX(150);
+        valutaComboBox.setLayoutX(80);
+        return valutaComboBox;
     }
 
     private Button createConvertButton() {
@@ -41,5 +65,16 @@ public class ValutaConverter extends Application {
         convertButton.setOnAction( actionEvent ->
                 System.out.println("Converted"));
         return convertButton;
+    }
+
+    private ArrayList<Valuta> initiateCurrencies() {
+        ArrayList<Valuta> currencies = new ArrayList<>();
+        currencies.add(new Valuta("Euro", "EUR"));
+        currencies.add(new Valuta("Australian Dollar", "AUD"));
+        currencies.add(new Valuta("US Dollar", "USD"));
+        for (Valuta valuta: currencies) {
+            valuta.setDefaults();
+        }
+        return currencies;
     }
 }
