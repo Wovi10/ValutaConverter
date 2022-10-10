@@ -41,26 +41,28 @@ public class ValutaConverter extends Application {
         for (Valuta valuta: Currencies) {
             comboBox.getItems().add(valuta);
         }
+
     }
     private ComboBox<Object> createSecondComboBox() {
         ComboBox<Object> valutaComboBox = new ComboBox<>();
-        valutaComboBox.setLayoutX(150);
-        valutaComboBox.setLayoutX(80);
-
+        valutaComboBox.setLayoutX(50);
+        valutaComboBox.setLayoutY(80);
+        valutaComboBox.setValue("Choose a valuta");
         return valutaComboBox;
     }
 
     private ComboBox<Object> createFirstComboBox() {
         ComboBox<Object> valutaComboBox = new ComboBox<>();
-        valutaComboBox.setLayoutX(150);
-        valutaComboBox.setLayoutX(80);
+        valutaComboBox.setLayoutX(50);
+        valutaComboBox.setLayoutY(50);
+        valutaComboBox.setValue("Choose a valuta");
         return valutaComboBox;
     }
 
     private Button createConvertButton() {
         Button convertButton = new Button();
-        convertButton.setLayoutX(100);
-        convertButton.setLayoutY(80);
+        convertButton.setLayoutX(50);
+        convertButton.setLayoutY(110);
         convertButton.setText("Convert");
         convertButton.setOnAction( actionEvent ->
                 System.out.println("Converted"));
