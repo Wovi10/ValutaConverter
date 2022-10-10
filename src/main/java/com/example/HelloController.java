@@ -1,4 +1,4 @@
-package com.example.valutaconverter;
+package com.example;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

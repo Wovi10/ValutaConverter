@@ -1,9 +1,11 @@
-module com.example.valutaconverter {
+module com.wovi10.valutaconverter {
     requires javafx.controls;
     requires javafx.fxml;
 
     requires org.kordamp.bootstrapfx.core;
 
-    opens com.example.valutaconverter to javafx.fxml;
-    exports com.example.valutaconverter;
+    opens com.wovi10.valutaconverter to javafx.fxml;
+    exports com.wovi10.valutaconverter;
+    exports com.example;
+    opens com.example to javafx.fxml;
 }
