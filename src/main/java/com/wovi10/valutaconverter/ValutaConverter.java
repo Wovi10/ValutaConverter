@@ -46,8 +46,7 @@ public class ValutaConverter extends Application {
     }
 
     private TextField createOutputField() {
-        TextField outputTextField = createDefaultTextField();
-        return outputTextField;
+        return createDefaultTextField();
     }
 
     private TextField createDefaultTextField() {
