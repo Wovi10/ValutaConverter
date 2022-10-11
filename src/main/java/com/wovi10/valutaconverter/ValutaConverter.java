@@ -80,4 +80,8 @@ public class ValutaConverter extends Application {
         }
         return currencies;
     }
+
+    private void placeObjectOnPane(Object objectToPlace ,int layoutX, int layoutY, String textToShow){
+
+    }
 }
