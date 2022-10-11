@@ -11,6 +11,8 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 
 public class ValutaConverter extends Application {
+    public static final int STANDARD_INDENT = 50;
+    public static final int STANDARD_HEIGHT = 50;
     ArrayList<Valuta> Currencies = initiateCurrencies();
 
     public static void main(String[] args) {
@@ -42,20 +44,19 @@ public class ValutaConverter extends Application {
         for (Valuta valuta: Currencies) {
             comboBox.getItems().add(valuta.getName());
         }
-
-    }
-    private ComboBox<Object> createSecondComboBox() {
-        ComboBox<Object> valutaComboBox = new ComboBox<>();
-        valutaComboBox.setLayoutX(50);
-        valutaComboBox.setLayoutY(80);
-        valutaComboBox.setValue("Choose a valuta");
-        return valutaComboBox;
     }
 
     private ComboBox<Object> createFirstComboBox() {
+        return createComboBox(STANDARD_HEIGHT);
+    }
+
+    private ComboBox<Object> createSecondComboBox() {
+        return createComboBox(STANDARD_HEIGHT + 30);
+    }
+
+    private ComboBox<Object> createComboBox(int layoutY) {
         ComboBox<Object> valutaComboBox = new ComboBox<>();
-        valutaComboBox.setLayoutX(50);
-        valutaComboBox.setLayoutY(50);
+        placeObjectOnPane(valutaComboBox, layoutY);
         valutaComboBox.setValue("Choose a valuta");
         return valutaComboBox;
     }
@@ -81,7 +82,8 @@ public class ValutaConverter extends Application {
         return currencies;
     }
 
-    private void placeObjectOnPane(Object objectToPlace ,int layoutX, int layoutY, String textToShow){
-
+    private void placeObjectOnPane(ComboBox<Object> comboBox , int layoutY){
+        comboBox.setLayoutX(ValutaConverter.STANDARD_INDENT);
+        comboBox.setLayoutY(layoutY);
     }
 }
