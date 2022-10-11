@@ -62,7 +62,7 @@ public class ValutaConverter extends Application {
 
     private Button createConvertButton() {
         Button convertButton = new Button();
-        placeButtonOnPane(convertButton, STANDARD_HEIGHT,"Convert");
+        placeButtonOnPane(convertButton, STANDARD_HEIGHT + 60,"Convert");
         convertButton.setOnAction( actionEvent ->
                 System.out.println("Converted"));
         return convertButton;
