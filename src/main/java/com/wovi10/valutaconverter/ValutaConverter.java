@@ -56,7 +56,7 @@ public class ValutaConverter extends Application {
 
     private ComboBox<Object> createComboBox(int layoutY) {
         ComboBox<Object> valutaComboBox = new ComboBox<>();
-        placeObjectOnPane(valutaComboBox, layoutY);
+        placeComboBoxOnPane(valutaComboBox, layoutY);
         valutaComboBox.setValue("Choose a valuta");
         return valutaComboBox;
     }
@@ -82,8 +82,13 @@ public class ValutaConverter extends Application {
         return currencies;
     }
 
-    private void placeObjectOnPane(ComboBox<Object> comboBox , int layoutY){
+    private void placeComboBoxOnPane(ComboBox<Object> comboBox , int layoutY){
         comboBox.setLayoutX(ValutaConverter.STANDARD_INDENT);
         comboBox.setLayoutY(layoutY);
+    }
+
+    private void placeButtonOnPane(Button button , int layoutY){
+        button.setLayoutX(ValutaConverter.STANDARD_INDENT);
+        button.setLayoutY(layoutY);
     }
 }
