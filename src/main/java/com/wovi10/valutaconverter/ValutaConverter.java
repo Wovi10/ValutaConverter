@@ -10,6 +10,8 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 
 public class ValutaConverter extends Application {
+    public static final int PROGRAM_WIDTH = 500;
+    public static final int PROGRAM_HEIGHT = 250;
     ArrayList<Valuta> Currencies = initiateCurrencies();
 
     public static void main(String[] args) {
@@ -20,7 +22,7 @@ public class ValutaConverter extends Application {
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Valuta Converter");
         Group root = new Group();
-        Scene scene = new Scene(root, 300, 250);
+        Scene scene = new Scene(root, PROGRAM_WIDTH, PROGRAM_HEIGHT);
         setupForm(root);
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -39,7 +41,7 @@ public class ValutaConverter extends Application {
 
     private void fillComboBox(ComboBox<Object> comboBox){
         for (Valuta valuta: Currencies) {
-            comboBox.getItems().add(valuta);
+            comboBox.getItems().add(valuta.getName());
         }
 
     }
