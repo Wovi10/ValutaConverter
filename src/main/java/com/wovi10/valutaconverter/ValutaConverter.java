@@ -46,11 +46,20 @@ public class ValutaConverter extends Application {
     }
 
     private TextField createOutputField() {
-        return null;
+        TextField outputTextField = createDefaultTextField();
+        return outputTextField;
+    }
+
+    private TextField createDefaultTextField() {
+        TextField defaultTextField = new TextField();
+        defaultTextField.setLayoutX(STANDARD_INDENT);
+        defaultTextField.setLayoutY(STANDARD_HEIGHT);
+        defaultTextField.setPrefWidth(50);
+        return defaultTextField;
     }
 
     private TextField createInputField() {
-        return null;
+        return new TextField();
     }
 
     private void fillComboBox(ComboBox<Object> comboBox){
@@ -93,13 +102,13 @@ public class ValutaConverter extends Application {
     }
 
     private void placeComboBoxOnPane(ComboBox<Object> comboBox , int layoutY, String displayText){
-        comboBox.setLayoutX(ValutaConverter.STANDARD_INDENT);
+        comboBox.setLayoutX(ValutaConverter.STANDARD_INDENT + 50);
         comboBox.setLayoutY(layoutY);
         comboBox.setValue(displayText);
     }
 
     private void placeButtonOnPane(Button button , int layoutY, String displayText){
-        button.setLayoutX(ValutaConverter.STANDARD_INDENT);
+        button.setLayoutX(ValutaConverter.STANDARD_INDENT + 50);
         button.setLayoutY(layoutY);
         button.setText(displayText);
     }
