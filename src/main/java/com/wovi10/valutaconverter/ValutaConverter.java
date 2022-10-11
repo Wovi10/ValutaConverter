@@ -1,5 +1,6 @@
 package com.wovi10.valutaconverter;
 
+import com.wovi10.valutaconverter.utils.ValutaConstants;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -10,8 +11,6 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 
 public class ValutaConverter extends Application {
-    public static final int PROGRAM_WIDTH = 500;
-    public static final int PROGRAM_HEIGHT = 250;
     ArrayList<Valuta> Currencies = initiateCurrencies();
 
     public static void main(String[] args) {
@@ -20,9 +19,9 @@ public class ValutaConverter extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        primaryStage.setTitle("Valuta Converter");
+        primaryStage.setTitle(ValutaConstants.PROGRAM_TITLE);
         Group root = new Group();
-        Scene scene = new Scene(root, PROGRAM_WIDTH, PROGRAM_HEIGHT);
+        Scene scene = new Scene(root, ValutaConstants.PROGRAM_WIDTH, ValutaConstants.PROGRAM_HEIGHT);
         setupForm(root);
         primaryStage.setScene(scene);
         primaryStage.show();
