@@ -6,6 +6,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -33,11 +34,23 @@ public class ValutaConverter extends Application {
         Button convertButton = createConvertButton();
         ComboBox<Object> valutaFrom_CB = createFirstComboBox();
         ComboBox<Object> valutaTo_CB = createSecondComboBox();
+        TextField inputValuta = createInputField();
+        TextField outputValuta = createOutputField();
         fillComboBox(valutaFrom_CB);
         fillComboBox(valutaTo_CB);
         root.getChildren().add(convertButton);
+        root.getChildren().add(inputValuta);
         root.getChildren().add(valutaFrom_CB);
+        root.getChildren().add(outputValuta);
         root.getChildren().add(valutaTo_CB);
+    }
+
+    private TextField createOutputField() {
+        return null;
+    }
+
+    private TextField createInputField() {
+        return null;
     }
 
     private void fillComboBox(ComboBox<Object> comboBox){
