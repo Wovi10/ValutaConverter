@@ -45,20 +45,22 @@ public class ValutaConverter extends Application {
         root.getChildren().add(valutaTo_CB);
     }
 
-    private TextField createOutputField() {
-        return createDefaultTextField();
+    private TextField createInputField() {
+        return createDefaultTextField(STANDARD_HEIGHT);
     }
 
-    private TextField createDefaultTextField() {
+    private TextField createOutputField() {
+        TextField outputTextField = createDefaultTextField(STANDARD_HEIGHT + 30);
+        outputTextField.setEditable(false);
+        return outputTextField;
+    }
+
+    private TextField createDefaultTextField(int layoutY) {
         TextField defaultTextField = new TextField();
         defaultTextField.setLayoutX(STANDARD_INDENT);
-        defaultTextField.setLayoutY(STANDARD_HEIGHT);
+        defaultTextField.setLayoutY(layoutY);
         defaultTextField.setPrefWidth(50);
         return defaultTextField;
-    }
-
-    private TextField createInputField() {
-        return new TextField();
     }
 
     private void fillComboBox(ComboBox<Object> comboBox){
@@ -83,9 +85,10 @@ public class ValutaConverter extends Application {
 
     private Button createConvertButton() {
         Button convertButton = new Button();
-        placeButtonOnPane(convertButton, STANDARD_HEIGHT + 60,"Convert");
+        createDefaultButton(convertButton, STANDARD_HEIGHT + 60,"Convert");
         convertButton.setOnAction( actionEvent ->
-                System.out.println("Converted"));
+                System.out.println("Converted")
+        );
         return convertButton;
     }
 
@@ -106,7 +109,7 @@ public class ValutaConverter extends Application {
         comboBox.setValue(displayText);
     }
 
-    private void placeButtonOnPane(Button button , int layoutY, String displayText){
+    private void createDefaultButton(Button button , int layoutY, String displayText){
         button.setLayoutX(ValutaConverter.STANDARD_INDENT + 50);
         button.setLayoutY(layoutY);
         button.setText(displayText);
