@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class ValutaConverter extends Application {
     public static final int STANDARD_INDENT = 50;
@@ -22,6 +23,7 @@ public class ValutaConverter extends Application {
     ComboBox<Object> valutaFrom_CB;
     ComboBox<Object> valutaTo_CB;
     ArrayList<Valuta> Currencies = Valuta.initiateCurrencies();
+    Valuta defaultCurrency = new Valuta("default", "default");
 
     public static void main(String[] args) {
         launch(args);
@@ -106,12 +108,25 @@ public class ValutaConverter extends Application {
     }
 
     private void setOutput() {
-        outputValuta.setText(output_int.toString());
+        String formatted_output = ValutaConstants.FORMAT.format(output_int);
+        outputValuta.setText(formatted_output);
     }
 
     private void calculateConversion() {
-        String nameCurrencyInput = ((Valuta) valutaFrom_CB.getValue()).getAbbreviation();
-        String nameCurrencyOutput = ((Valuta) valutaTo_CB.getValue()).getAbbreviation();
+        Valuta valutaInput = defaultCurrency;
+        for (Valuta currency : Currencies) {
+            if (currency.getName().equals(valutaFrom_CB.getValue())){
+                valutaInput = currency;
+            }
+        }
+        Valuta valutaOutput = defaultCurrency;
+        for (Valuta currency : Currencies) {
+            if (currency.getName().equals(valutaTo_CB.getValue())){
+                valutaOutput = currency;
+            }
+        }
+        String nameCurrencyInput = valutaInput.getAbbreviation();
+        String nameCurrencyOutput = valutaOutput.getAbbreviation();
         output_int = convert(nameCurrencyInput, nameCurrencyOutput, input_int);
     }
 
@@ -127,14 +142,17 @@ public class ValutaConverter extends Application {
         for (Valuta currency : Currencies) {
             if (abbreviationInput.equals(currency.getAbbreviation())){
                 HashMap<String, Double> exchangeValues = currency.getExchangeValues();
+                System.out.println(exchangeValues);
+                System.out.println(abbreviationOutput);
                 output = exchangeValues.get(abbreviationOutput);
+                System.out.println(output);
             }
         }
         return output;
     }
 
     private void setInput() {
-        input_int = Double.parseDouble(inputValuta.getAccessibleText());
+        input_int = Double.parseDouble(inputValuta.getText());
     }
 
     private void placeComboBoxOnPane(ComboBox<Object> comboBox , int layoutY, String displayText){

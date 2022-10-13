@@ -41,13 +41,13 @@ public class Valuta {
     public void setDefaults(){
         switch (this.Abbreviation.toUpperCase(Locale.ROOT)) {
             case "EUR" -> {
-                this.ExchangeValues.put("AUD", 1.54);
+                this.ExchangeValues.put("AUD", 1.55);
                 this.ExchangeValues.put("EUR", 1.00);
                 this.ExchangeValues.put("USD", 0.97);
             }
             case "AUD" -> {
                 this.ExchangeValues.put("AUD", 1.00);
-                this.ExchangeValues.put("EUR", 0.65);
+                this.ExchangeValues.put("EUR", 0.64);
                 this.ExchangeValues.put("USD", 0.63);
             }
             case "USD" -> {
