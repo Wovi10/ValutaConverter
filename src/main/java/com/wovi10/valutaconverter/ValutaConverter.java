@@ -14,6 +14,10 @@ import java.util.ArrayList;
 public class ValutaConverter extends Application {
     public static final int STANDARD_INDENT = 50;
     public static final int STANDARD_HEIGHT = 50;
+    public int input_int;
+    public int output_int;
+    public TextField inputValuta;
+    public TextField outputValuta;
     ArrayList<Valuta> Currencies = initiateCurrencies();
 
     public static void main(String[] args) {
@@ -34,8 +38,8 @@ public class ValutaConverter extends Application {
         Button convertButton = createConvertButton();
         ComboBox<Object> valutaFrom_CB = createFirstComboBox();
         ComboBox<Object> valutaTo_CB = createSecondComboBox();
-        TextField inputValuta = createInputField();
-        TextField outputValuta = createOutputField();
+        inputValuta = createInputField();
+        outputValuta = createOutputField();
         fillComboBox(valutaFrom_CB);
         fillComboBox(valutaTo_CB);
         root.getChildren().add(convertButton);
@@ -87,9 +91,23 @@ public class ValutaConverter extends Application {
         Button convertButton = new Button();
         createDefaultButton(convertButton, STANDARD_HEIGHT + 60,"Convert");
         convertButton.setOnAction( actionEvent ->
-                System.out.println("Converted")
+                convertInput()
         );
         return convertButton;
+    }
+
+    private void convertInput() {
+        setVariables();
+        calculateConversion();
+    }
+
+    private void calculateConversion() {
+        
+    }
+
+    private void setVariables() {
+        input_int = Integer.parseInt(inputValuta.getAccessibleText());
+        output_int = Integer.parseInt(outputValuta.getAccessibleText());
     }
 
     private ArrayList<Valuta> initiateCurrencies() {
