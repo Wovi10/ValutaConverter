@@ -6,11 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="ValutaConverter" />
+        <module name="CurrencyConverter" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="ValutaConverter" target="19" />
+      <module name="CurrencyConverter" target="19" />
     </bytecodeTargetLevel>
   </component>
 </project>
