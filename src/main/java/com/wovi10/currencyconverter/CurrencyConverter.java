@@ -9,20 +9,17 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
+import static com.wovi10.currencyconverter.utils.CurrencyConstants.*;
+
 public class CurrencyConverter extends Application {
-    public static final String CHOOSE_A_VALUTA = "Choose a valuta";
-    public static final String CONVERT_TEXT = "Convert";
     public Double input_int;
     public Double output_int;
     public TextField inputValuta;
     public TextField outputValuta;
     ComboBox<Object> valutaFrom_CB;
     ComboBox<Object> valutaTo_CB;
-    ArrayList<Currency> Currencies = Currency.initiateCurrencies();
-    Currency defaultCurrency = new Currency();
 
     public static void main(String[] args) {
         launch(args);
@@ -30,9 +27,9 @@ public class CurrencyConverter extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        primaryStage.setTitle(CurrencyConstants.PROGRAM_TITLE);
+        primaryStage.setTitle(PROGRAM_TITLE);
         Group root = new Group();
-        Scene scene = new Scene(root, CurrencyConstants.PROGRAM_WIDTH, CurrencyConstants.PROGRAM_HEIGHT);
+        Scene scene = new Scene(root, PROGRAM_WIDTH, PROGRAM_HEIGHT);
         setupForm(root);
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -58,20 +55,20 @@ public class CurrencyConverter extends Application {
     }
 
     private TextField createInputField() {
-        return createDefaultTextField(CurrencyConstants.STANDARD_HEIGHT);
+        return createDefaultTextField(STANDARD_HEIGHT);
     }
 
     private TextField createOutputField() {
-        TextField outputTextField = createDefaultTextField(CurrencyConstants.STANDARD_HEIGHT + 30);
+        TextField outputTextField = createDefaultTextField(STANDARD_HEIGHT + 30);
         outputTextField.setEditable(false);
         return outputTextField;
     }
 
     private TextField createDefaultTextField(int layoutY) {
         TextField defaultTextField = new TextField();
-        defaultTextField.setLayoutX(CurrencyConstants.STANDARD_INDENT);
+        defaultTextField.setLayoutX(STANDARD_INDENT);
         defaultTextField.setLayoutY(layoutY);
-        defaultTextField.setPrefWidth(CurrencyConstants.TEXTFIELD_WIDTH);
+        defaultTextField.setPrefWidth(TEXTFIELD_WIDTH);
         return defaultTextField;
     }
 
@@ -82,11 +79,11 @@ public class CurrencyConverter extends Application {
     }
 
     private ComboBox<Object> createFirstComboBox() {
-        return createComboBox(CurrencyConstants.STANDARD_HEIGHT);
+        return createComboBox(STANDARD_HEIGHT);
     }
 
     private ComboBox<Object> createSecondComboBox() {
-        return createComboBox(CurrencyConstants.STANDARD_HEIGHT + 30);
+        return createComboBox(STANDARD_HEIGHT + 30);
     }
 
     private ComboBox<Object> createComboBox(int layoutY) {
@@ -111,7 +108,7 @@ public class CurrencyConverter extends Application {
     }
 
     private void setOutput() {
-        String formatted_output = CurrencyConstants.FORMAT.format(output_int);
+        String formatted_output = FORMAT.format(output_int);
         outputValuta.setText(formatted_output);
     }
 
@@ -141,14 +138,11 @@ public class CurrencyConverter extends Application {
     }
 
     private Double getExchangeValue(String abbreviationInput, String abbreviationOutput){
-        Double output = CurrencyConstants.DEFAULT_EXCHANGEVALUE;
+        Double output = DEFAULT_EXCHANGEVALUE;
         for (Currency currency : Currencies) {
             if (abbreviationInput.equals(currency.getAbbreviation())){
                 HashMap<String, Double> exchangeValues = currency.getExchangeValues();
-                System.out.println(exchangeValues);
-                System.out.println(abbreviationOutput);
                 output = exchangeValues.get(abbreviationOutput);
-                System.out.println(output);
             }
         }
         return output;
@@ -159,14 +153,14 @@ public class CurrencyConverter extends Application {
     }
 
     private void placeComboBoxOnPane(ComboBox<Object> comboBox , int layoutY){
-        comboBox.setLayoutX(CurrencyConstants.STANDARD_INDENT + 50);
+        comboBox.setLayoutX(STANDARD_INDENT + TEXTFIELD_WIDTH);
         comboBox.setLayoutY(layoutY);
         comboBox.setValue(CHOOSE_A_VALUTA);
     }
 
     private void createDefaultButton(Button button){
-        button.setLayoutX(CurrencyConstants.STANDARD_INDENT + 50);
-        button.setLayoutY(CurrencyConstants.STANDARD_HEIGHT + 60);
+        button.setLayoutX(STANDARD_INDENT + TEXTFIELD_WIDTH);
+        button.setLayoutY(STANDARD_HEIGHT + 60);
         button.setText(CONVERT_TEXT);
     }
 }
