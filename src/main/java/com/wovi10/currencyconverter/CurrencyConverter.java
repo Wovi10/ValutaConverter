@@ -1,6 +1,6 @@
-package com.wovi10.valutaconverter;
+package com.wovi10.currencyconverter;
 
-import com.wovi10.valutaconverter.utils.ValutaConstants;
+import com.wovi10.currencyconverter.utils.CurrencyConstants;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -11,9 +11,8 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Objects;
 
-public class ValutaConverter extends Application {
+public class CurrencyConverter extends Application {
     public static final int STANDARD_INDENT = 50;
     public static final int STANDARD_HEIGHT = 50;
     public Double input_int;
@@ -22,8 +21,8 @@ public class ValutaConverter extends Application {
     public TextField outputValuta;
     ComboBox<Object> valutaFrom_CB;
     ComboBox<Object> valutaTo_CB;
-    ArrayList<Valuta> Currencies = Valuta.initiateCurrencies();
-    Valuta defaultCurrency = new Valuta("default", "default");
+    ArrayList<Currency> Currencies = Currency.initiateCurrencies();
+    Currency defaultCurrency = new Currency("default", "default");
 
     public static void main(String[] args) {
         launch(args);
@@ -31,9 +30,9 @@ public class ValutaConverter extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        primaryStage.setTitle(ValutaConstants.PROGRAM_TITLE);
+        primaryStage.setTitle(CurrencyConstants.PROGRAM_TITLE);
         Group root = new Group();
-        Scene scene = new Scene(root, ValutaConstants.PROGRAM_WIDTH, ValutaConstants.PROGRAM_HEIGHT);
+        Scene scene = new Scene(root, CurrencyConstants.PROGRAM_WIDTH, CurrencyConstants.PROGRAM_HEIGHT);
         setupForm(root);
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -73,8 +72,8 @@ public class ValutaConverter extends Application {
     }
 
     private void fillComboBox(ComboBox<Object> comboBox){
-        for (Valuta valuta: Currencies) {
-            comboBox.getItems().add(valuta.getName());
+        for (Currency currency : Currencies) {
+            comboBox.getItems().add(currency.getName());
         }
     }
 
@@ -108,25 +107,25 @@ public class ValutaConverter extends Application {
     }
 
     private void setOutput() {
-        String formatted_output = ValutaConstants.FORMAT.format(output_int);
+        String formatted_output = CurrencyConstants.FORMAT.format(output_int);
         outputValuta.setText(formatted_output);
     }
 
     private void calculateConversion() {
-        Valuta valutaInput = defaultCurrency;
-        for (Valuta currency : Currencies) {
+        Currency currencyInput = defaultCurrency;
+        for (Currency currency : Currencies) {
             if (currency.getName().equals(valutaFrom_CB.getValue())){
-                valutaInput = currency;
+                currencyInput = currency;
             }
         }
-        Valuta valutaOutput = defaultCurrency;
-        for (Valuta currency : Currencies) {
+        Currency currencyOutput = defaultCurrency;
+        for (Currency currency : Currencies) {
             if (currency.getName().equals(valutaTo_CB.getValue())){
-                valutaOutput = currency;
+                currencyOutput = currency;
             }
         }
-        String nameCurrencyInput = valutaInput.getAbbreviation();
-        String nameCurrencyOutput = valutaOutput.getAbbreviation();
+        String nameCurrencyInput = currencyInput.getAbbreviation();
+        String nameCurrencyOutput = currencyOutput.getAbbreviation();
         output_int = convert(nameCurrencyInput, nameCurrencyOutput, input_int);
     }
 
@@ -138,8 +137,8 @@ public class ValutaConverter extends Application {
     }
 
     private Double getExchangeValue(String abbreviationInput, String abbreviationOutput){
-        Double output = ValutaConstants.DEFAULT_EXCHANGEVALUE;
-        for (Valuta currency : Currencies) {
+        Double output = CurrencyConstants.DEFAULT_EXCHANGEVALUE;
+        for (Currency currency : Currencies) {
             if (abbreviationInput.equals(currency.getAbbreviation())){
                 HashMap<String, Double> exchangeValues = currency.getExchangeValues();
                 System.out.println(exchangeValues);
@@ -156,13 +155,13 @@ public class ValutaConverter extends Application {
     }
 
     private void placeComboBoxOnPane(ComboBox<Object> comboBox , int layoutY, String displayText){
-        comboBox.setLayoutX(ValutaConverter.STANDARD_INDENT + 50);
+        comboBox.setLayoutX(CurrencyConverter.STANDARD_INDENT + 50);
         comboBox.setLayoutY(layoutY);
         comboBox.setValue(displayText);
     }
 
     private void createDefaultButton(Button button , int layoutY, String displayText){
-        button.setLayoutX(ValutaConverter.STANDARD_INDENT + 50);
+        button.setLayoutX(CurrencyConverter.STANDARD_INDENT + 50);
         button.setLayoutY(layoutY);
         button.setText(displayText);
     }

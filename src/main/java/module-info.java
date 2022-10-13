@@ -4,10 +4,10 @@ module com.wovi10.valutaconverter {
 
     requires org.kordamp.bootstrapfx.core;
 
-    opens com.wovi10.valutaconverter to javafx.fxml;
-    exports com.wovi10.valutaconverter;
+    opens com.wovi10.currencyconverter to javafx.fxml;
+    exports com.wovi10.currencyconverter;
     exports com.example;
     opens com.example to javafx.fxml;
-    exports com.wovi10.valutaconverter.utils;
-    opens com.wovi10.valutaconverter.utils to javafx.fxml;
+    exports com.wovi10.currencyconverter.utils;
+    opens com.wovi10.currencyconverter.utils to javafx.fxml;
 }

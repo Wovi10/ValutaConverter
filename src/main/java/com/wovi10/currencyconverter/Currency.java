@@ -1,15 +1,15 @@
-package com.wovi10.valutaconverter;
+package com.wovi10.currencyconverter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 
-public class Valuta {
+public class Currency {
     private String Name;
     private String Abbreviation;
     private HashMap<String, Double> ExchangeValues = new HashMap<String, Double>();
 
-    public Valuta(String name, String abbreviation) {
+    public Currency(String name, String abbreviation) {
         Name = name;
         Abbreviation = abbreviation;
     }
@@ -58,13 +58,13 @@ public class Valuta {
         }
     }
 
-    public static ArrayList<Valuta> initiateCurrencies() {
-        ArrayList<Valuta> currencies = new ArrayList<>();
-        currencies.add(new Valuta("Euro", "EUR"));
-        currencies.add(new Valuta("Australian Dollar", "AUD"));
-        currencies.add(new Valuta("US Dollar", "USD"));
-        for (Valuta valuta: currencies) {
-            valuta.setDefaults();
+    public static ArrayList<Currency> initiateCurrencies() {
+        ArrayList<Currency> currencies = new ArrayList<>();
+        currencies.add(new Currency("Euro", "EUR"));
+        currencies.add(new Currency("Australian Dollar", "AUD"));
+        currencies.add(new Currency("US Dollar", "USD"));
+        for (Currency currency : currencies) {
+            currency.setDefaults();
         }
         return currencies;
     }
