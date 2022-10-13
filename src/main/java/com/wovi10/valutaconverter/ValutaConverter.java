@@ -18,7 +18,9 @@ public class ValutaConverter extends Application {
     public int output_int;
     public TextField inputValuta;
     public TextField outputValuta;
-    ArrayList<Valuta> Currencies = initiateCurrencies();
+    ComboBox<Object> valutaFrom_CB;
+    ComboBox<Object> valutaTo_CB;
+    ArrayList<Valuta> Currencies = Valuta.initiateCurrencies();
 
     public static void main(String[] args) {
         launch(args);
@@ -36,8 +38,8 @@ public class ValutaConverter extends Application {
 
     private void setupForm(Group root) {
         Button convertButton = createConvertButton();
-        ComboBox<Object> valutaFrom_CB = createFirstComboBox();
-        ComboBox<Object> valutaTo_CB = createSecondComboBox();
+        valutaFrom_CB = createFirstComboBox();
+        valutaTo_CB = createSecondComboBox();
         inputValuta = createInputField();
         outputValuta = createOutputField();
         fillComboBox(valutaFrom_CB);
@@ -97,28 +99,36 @@ public class ValutaConverter extends Application {
     }
 
     private void convertInput() {
-        setVariables();
+        setInput();
         calculateConversion();
     }
 
     private void calculateConversion() {
-        
+        String nameCurrencyInput = ((Valuta) valutaFrom_CB.getValue()).getAbbreviation();
+        String nameCurrencyOutput = ((Valuta) valutaTo_CB.getValue()).getAbbreviation();
+        output_int = convert(nameCurrencyInput, nameCurrencyOutput, input_int);
     }
 
-    private void setVariables() {
-        input_int = Integer.parseInt(inputValuta.getAccessibleText());
-        output_int = Integer.parseInt(outputValuta.getAccessibleText());
+    private int convert(String nameCurrencyInput, String nameCurrencyOutput, int amount) {
+        int output;
+        Double exchangeValue = getExchangeValue(nameCurrencyInput, nameCurrencyOutput);
+
+        return output;
     }
 
-    private ArrayList<Valuta> initiateCurrencies() {
-        ArrayList<Valuta> currencies = new ArrayList<>();
-        currencies.add(new Valuta("Euro", "EUR"));
-        currencies.add(new Valuta("Australian Dollar", "AUD"));
-        currencies.add(new Valuta("US Dollar", "USD"));
-        for (Valuta valuta: currencies) {
-            valuta.setDefaults();
+    private Double getExchangeValue(String abbreviationInput, String abbreviationOutput){
+        Double output;
+        for (Valuta currency : Currencies) {
+            if (abbreviationInput.equals(currency.getAbbreviation())){
+                
+            }
         }
-        return currencies;
+
+        return output;
+    }
+
+    private void setInput() {
+        input_int = Integer.parseInt(inputValuta.getAccessibleText());
     }
 
     private void placeComboBoxOnPane(ComboBox<Object> comboBox , int layoutY, String displayText){

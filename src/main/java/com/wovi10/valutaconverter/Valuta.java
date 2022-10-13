@@ -1,5 +1,6 @@
 package com.wovi10.valutaconverter;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 
@@ -55,5 +56,24 @@ public class Valuta {
                 this.ExchangeValues.put("USD", 1.00);
             }
         }
+    }
+
+    public static ArrayList<Valuta> initiateCurrencies() {
+        ArrayList<Valuta> currencies = new ArrayList<>();
+        currencies.add(new Valuta("Euro", "EUR"));
+        currencies.add(new Valuta("Australian Dollar", "AUD"));
+        currencies.add(new Valuta("US Dollar", "USD"));
+        for (Valuta valuta: currencies) {
+            valuta.setDefaults();
+        }
+        return currencies;
+    }
+
+    public static Double convert(Double amount, Double exchangeValue) {
+        double price;
+        price = amount * exchangeValue;
+        price = Math.round(price * 100d) / 100d;
+
+        return price;
     }
 }
