@@ -15,8 +15,8 @@ import java.util.HashMap;
 public class ValutaConverter extends Application {
     public static final int STANDARD_INDENT = 50;
     public static final int STANDARD_HEIGHT = 50;
-    public int input_int;
-    public int output_int;
+    public Double input_int;
+    public Double output_int;
     public TextField inputValuta;
     public TextField outputValuta;
     ComboBox<Object> valutaFrom_CB;
@@ -102,6 +102,11 @@ public class ValutaConverter extends Application {
     private void convertInput() {
         setInput();
         calculateConversion();
+        setOutput();
+    }
+
+    private void setOutput() {
+        outputValuta.setText(output_int.toString());
     }
 
     private void calculateConversion() {
@@ -110,26 +115,26 @@ public class ValutaConverter extends Application {
         output_int = convert(nameCurrencyInput, nameCurrencyOutput, input_int);
     }
 
-    private int convert(String nameCurrencyInput, String nameCurrencyOutput, int amount) {
-        int output;
+    private Double convert(String nameCurrencyInput, String nameCurrencyOutput, Double amount) {
+        Double output;
         Double exchangeValue = getExchangeValue(nameCurrencyInput, nameCurrencyOutput);
-
+        output = amount * exchangeValue;
         return output;
     }
 
     private Double getExchangeValue(String abbreviationInput, String abbreviationOutput){
-        Double output;
+        Double output = ValutaConstants.DEFAULT_EXCHANGEVALUE;
         for (Valuta currency : Currencies) {
             if (abbreviationInput.equals(currency.getAbbreviation())){
                 HashMap<String, Double> exchangeValues = currency.getExchangeValues();
+                output = exchangeValues.get(abbreviationOutput);
             }
         }
-
         return output;
     }
 
     private void setInput() {
-        input_int = Integer.parseInt(inputValuta.getAccessibleText());
+        input_int = Double.parseDouble(inputValuta.getAccessibleText());
     }
 
     private void placeComboBoxOnPane(ComboBox<Object> comboBox , int layoutY, String displayText){
