@@ -41,57 +41,10 @@ public class CurrencyConverter extends Application {
         valutaTo_CB = createSecondComboBox();
         inputValuta = createInputField();
         outputValuta = createOutputField();
-        fillComboBox(valutaFrom_CB);
-        fillComboBox(valutaTo_CB);
         addToForm(root, convertButton);
     }
 
-    private void addToForm(Group root, Button convertButton) {
-        root.getChildren().add(convertButton);
-        root.getChildren().add(inputValuta);
-        root.getChildren().add(valutaFrom_CB);
-        root.getChildren().add(outputValuta);
-        root.getChildren().add(valutaTo_CB);
-    }
-
-    private TextField createInputField() {
-        return createDefaultTextField(STANDARD_HEIGHT);
-    }
-
-    private TextField createOutputField() {
-        TextField outputTextField = createDefaultTextField(STANDARD_HEIGHT + 30);
-        outputTextField.setEditable(false);
-        return outputTextField;
-    }
-
-    private TextField createDefaultTextField(int layoutY) {
-        TextField defaultTextField = new TextField();
-        defaultTextField.setLayoutX(STANDARD_INDENT);
-        defaultTextField.setLayoutY(layoutY);
-        defaultTextField.setPrefWidth(TEXTFIELD_WIDTH);
-        return defaultTextField;
-    }
-
-    private void fillComboBox(ComboBox<Object> comboBox){
-        for (Currency currency : Currencies) {
-            comboBox.getItems().add(currency.getName());
-        }
-    }
-
-    private ComboBox<Object> createFirstComboBox() {
-        return createComboBox(STANDARD_HEIGHT);
-    }
-
-    private ComboBox<Object> createSecondComboBox() {
-        return createComboBox(STANDARD_HEIGHT + 30);
-    }
-
-    private ComboBox<Object> createComboBox(int layoutY) {
-        ComboBox<Object> valutaComboBox = new ComboBox<>();
-        placeComboBoxOnPane(valutaComboBox, layoutY);
-        return valutaComboBox;
-    }
-
+    //region Buttons
     private Button createConvertButton() {
         Button convertButton = new Button();
         createDefaultButton(convertButton);
@@ -100,18 +53,19 @@ public class CurrencyConverter extends Application {
         );
         return convertButton;
     }
-
+    private void createDefaultButton(Button button){
+        button.setLayoutX(STANDARD_INDENT + TEXTFIELD_WIDTH);
+        button.setLayoutY(STANDARD_HEIGHT + 60);
+        button.setText(CONVERT_TEXT);
+    }
     private void convertInput() {
         setInput();
         calculateConversion();
         setOutput();
     }
-
-    private void setOutput() {
-        String formatted_output = FORMAT.format(output_int);
-        outputValuta.setText(formatted_output);
+    private void setInput() {
+        input_int = Double.parseDouble(inputValuta.getText());
     }
-
     private void calculateConversion() {
         Currency currencyInput = defaultCurrency;
         for (Currency currency : Currencies) {
@@ -129,14 +83,12 @@ public class CurrencyConverter extends Application {
         String nameCurrencyOutput = currencyOutput.getAbbreviation();
         output_int = convert(nameCurrencyInput, nameCurrencyOutput, input_int);
     }
-
     private Double convert(String nameCurrencyInput, String nameCurrencyOutput, Double amount) {
         double output;
         Double exchangeValue = getExchangeValue(nameCurrencyInput, nameCurrencyOutput);
         output = amount * exchangeValue;
         return output;
     }
-
     private Double getExchangeValue(String abbreviationInput, String abbreviationOutput){
         Double output = DEFAULT_EXCHANGEVALUE;
         for (Currency currency : Currencies) {
@@ -147,20 +99,62 @@ public class CurrencyConverter extends Application {
         }
         return output;
     }
-
-    private void setInput() {
-        input_int = Double.parseDouble(inputValuta.getText());
+    private void setOutput() {
+        String formatted_output = FORMAT.format(output_int);
+        outputValuta.setText(formatted_output);
     }
+    //endregion
 
+    //region ComboBoxes
+    private ComboBox<Object> createFirstComboBox() {
+        ComboBox<Object> comboBox = createComboBox(STANDARD_HEIGHT);
+        return fillComboBox(comboBox);
+    }
+    private ComboBox<Object> createSecondComboBox() {
+        ComboBox<Object> comboBox = createComboBox(STANDARD_HEIGHT + 30);
+        return fillComboBox(comboBox);
+    }
+    private ComboBox<Object> createComboBox(int layoutY) {
+        ComboBox<Object> valutaComboBox = new ComboBox<>();
+        placeComboBoxOnPane(valutaComboBox, layoutY);
+        return valutaComboBox;
+    }
     private void placeComboBoxOnPane(ComboBox<Object> comboBox , int layoutY){
         comboBox.setLayoutX(STANDARD_INDENT + TEXTFIELD_WIDTH);
         comboBox.setLayoutY(layoutY);
         comboBox.setValue(CHOOSE_A_VALUTA);
     }
+    private ComboBox<Object> fillComboBox(ComboBox<Object> comboBox){
+        for (Currency currency : Currencies) {
+            comboBox.getItems().add(currency.getName());
+        }
+        return comboBox;
+    }
+    //endregion
 
-    private void createDefaultButton(Button button){
-        button.setLayoutX(STANDARD_INDENT + TEXTFIELD_WIDTH);
-        button.setLayoutY(STANDARD_HEIGHT + 60);
-        button.setText(CONVERT_TEXT);
+    //region TextFields
+    private TextField createInputField() {
+        return createDefaultTextField(STANDARD_HEIGHT);
+    }
+    private TextField createOutputField() {
+        TextField outputTextField = createDefaultTextField(STANDARD_HEIGHT + 30);
+        outputTextField.setEditable(false);
+        return outputTextField;
+    }
+    private TextField createDefaultTextField(int layoutY) {
+        TextField defaultTextField = new TextField();
+        defaultTextField.setLayoutX(STANDARD_INDENT);
+        defaultTextField.setLayoutY(layoutY);
+        defaultTextField.setPrefWidth(TEXTFIELD_WIDTH);
+        return defaultTextField;
+    }
+    //endregion
+
+    private void addToForm(Group root, Button convertButton) {
+        root.getChildren().add(convertButton);
+        root.getChildren().add(inputValuta);
+        root.getChildren().add(valutaFrom_CB);
+        root.getChildren().add(outputValuta);
+        root.getChildren().add(valutaTo_CB);
     }
 }
