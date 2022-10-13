@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class CurrencyConverter extends Application {
-    public static final int STANDARD_INDENT = 50;
-    public static final int STANDARD_HEIGHT = 50;
+    public static final String CHOOSE_A_VALUTA = "Choose a valuta";
+    public static final String CONVERT_TEXT = "Convert";
     public Double input_int;
     public Double output_int;
     public TextField inputValuta;
@@ -46,6 +46,10 @@ public class CurrencyConverter extends Application {
         outputValuta = createOutputField();
         fillComboBox(valutaFrom_CB);
         fillComboBox(valutaTo_CB);
+        addToForm(root, convertButton);
+    }
+
+    private void addToForm(Group root, Button convertButton) {
         root.getChildren().add(convertButton);
         root.getChildren().add(inputValuta);
         root.getChildren().add(valutaFrom_CB);
@@ -54,20 +58,20 @@ public class CurrencyConverter extends Application {
     }
 
     private TextField createInputField() {
-        return createDefaultTextField(STANDARD_HEIGHT);
+        return createDefaultTextField(CurrencyConstants.STANDARD_HEIGHT);
     }
 
     private TextField createOutputField() {
-        TextField outputTextField = createDefaultTextField(STANDARD_HEIGHT + 30);
+        TextField outputTextField = createDefaultTextField(CurrencyConstants.STANDARD_HEIGHT + 30);
         outputTextField.setEditable(false);
         return outputTextField;
     }
 
     private TextField createDefaultTextField(int layoutY) {
         TextField defaultTextField = new TextField();
-        defaultTextField.setLayoutX(STANDARD_INDENT);
+        defaultTextField.setLayoutX(CurrencyConstants.STANDARD_INDENT);
         defaultTextField.setLayoutY(layoutY);
-        defaultTextField.setPrefWidth(50);
+        defaultTextField.setPrefWidth(CurrencyConstants.TEXTFIELD_WIDTH);
         return defaultTextField;
     }
 
@@ -78,22 +82,22 @@ public class CurrencyConverter extends Application {
     }
 
     private ComboBox<Object> createFirstComboBox() {
-        return createComboBox(STANDARD_HEIGHT);
+        return createComboBox(CurrencyConstants.STANDARD_HEIGHT);
     }
 
     private ComboBox<Object> createSecondComboBox() {
-        return createComboBox(STANDARD_HEIGHT + 30);
+        return createComboBox(CurrencyConstants.STANDARD_HEIGHT + 30);
     }
 
     private ComboBox<Object> createComboBox(int layoutY) {
         ComboBox<Object> valutaComboBox = new ComboBox<>();
-        placeComboBoxOnPane(valutaComboBox, layoutY, "Choose a valuta");
+        placeComboBoxOnPane(valutaComboBox, layoutY);
         return valutaComboBox;
     }
 
     private Button createConvertButton() {
         Button convertButton = new Button();
-        createDefaultButton(convertButton, STANDARD_HEIGHT + 60,"Convert");
+        createDefaultButton(convertButton);
         convertButton.setOnAction( actionEvent ->
                 convertInput()
         );
@@ -130,7 +134,7 @@ public class CurrencyConverter extends Application {
     }
 
     private Double convert(String nameCurrencyInput, String nameCurrencyOutput, Double amount) {
-        Double output;
+        double output;
         Double exchangeValue = getExchangeValue(nameCurrencyInput, nameCurrencyOutput);
         output = amount * exchangeValue;
         return output;
@@ -154,15 +158,15 @@ public class CurrencyConverter extends Application {
         input_int = Double.parseDouble(inputValuta.getText());
     }
 
-    private void placeComboBoxOnPane(ComboBox<Object> comboBox , int layoutY, String displayText){
-        comboBox.setLayoutX(CurrencyConverter.STANDARD_INDENT + 50);
+    private void placeComboBoxOnPane(ComboBox<Object> comboBox , int layoutY){
+        comboBox.setLayoutX(CurrencyConstants.STANDARD_INDENT + 50);
         comboBox.setLayoutY(layoutY);
-        comboBox.setValue(displayText);
+        comboBox.setValue(CHOOSE_A_VALUTA);
     }
 
-    private void createDefaultButton(Button button , int layoutY, String displayText){
-        button.setLayoutX(CurrencyConverter.STANDARD_INDENT + 50);
-        button.setLayoutY(layoutY);
-        button.setText(displayText);
+    private void createDefaultButton(Button button){
+        button.setLayoutX(CurrencyConstants.STANDARD_INDENT + 50);
+        button.setLayoutY(CurrencyConstants.STANDARD_HEIGHT + 60);
+        button.setText(CONVERT_TEXT);
     }
 }
