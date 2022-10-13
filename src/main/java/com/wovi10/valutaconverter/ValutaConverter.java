@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ValutaConverter extends Application {
     public static final int STANDARD_INDENT = 50;
@@ -120,7 +121,7 @@ public class ValutaConverter extends Application {
         Double output;
         for (Valuta currency : Currencies) {
             if (abbreviationInput.equals(currency.getAbbreviation())){
-                
+                HashMap<String, Double> exchangeValues = currency.getExchangeValues();
             }
         }
 
