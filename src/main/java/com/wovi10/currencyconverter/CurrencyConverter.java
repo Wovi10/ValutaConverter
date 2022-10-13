@@ -22,7 +22,7 @@ public class CurrencyConverter extends Application {
     ComboBox<Object> valutaFrom_CB;
     ComboBox<Object> valutaTo_CB;
     ArrayList<Currency> Currencies = Currency.initiateCurrencies();
-    Currency defaultCurrency = new Currency("default", "default");
+    Currency defaultCurrency = new Currency();
 
     public static void main(String[] args) {
         launch(args);

@@ -10,8 +10,13 @@ public class Currency {
     private HashMap<String, Double> ExchangeValues = new HashMap<String, Double>();
 
     public Currency(String name, String abbreviation) {
-        Name = name;
-        Abbreviation = abbreviation;
+        this.Name = name;
+        this.Abbreviation = abbreviation;
+    }
+
+    public Currency() {
+        this.Name = "default";
+        this.Abbreviation = "default";
     }
 
     public String getName() {
