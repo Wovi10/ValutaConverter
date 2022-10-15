@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 
 import java.util.HashMap;
 
-import static com.wovi10.currencyconverter.utils.CurrencyConstants.*;
+import static com.wovi10.currencyconverter.utils.ProgramConstants.*;
 
 public class CurrencyConverter extends Application {
     public Double input_double;
@@ -70,14 +70,14 @@ public class CurrencyConverter extends Application {
     }
 
     private void calculateConversion() {
-        Currency input_Currency = defaultCurrency;
-        for (Currency currency : Currencies) {
+        Currency input_Currency = DEFAULT_CURRENCY;
+        for (Currency currency : CURRENCIES) {
             if (currency.getName().equals(valutaFrom_CB.getValue())) {
                 input_Currency = currency;
             }
         }
-        Currency output_Currency = defaultCurrency;
-        for (Currency currency : Currencies) {
+        Currency output_Currency = DEFAULT_CURRENCY;
+        for (Currency currency : CURRENCIES) {
             if (currency.getName().equals(valutaTo_CB.getValue())) {
                 output_Currency = currency;
             }
@@ -96,7 +96,7 @@ public class CurrencyConverter extends Application {
 
     private Double getExchangeValue(String input_CurrAbbr, String output_CurrAbbr) {
         Double output = DEFAULT_EXCHANGEVALUE;
-        for (Currency currency : Currencies) {
+        for (Currency currency : CURRENCIES) {
             if (input_CurrAbbr.equals(currency.getAbbreviation())) {
                 HashMap<String, Double> exchangeValues = currency.getExchangeValues();
                 output = exchangeValues.get(output_CurrAbbr);
@@ -135,7 +135,7 @@ public class CurrencyConverter extends Application {
     }
 
     private ComboBox<Object> fillComboBox(ComboBox<Object> comboBox) {
-        for (Currency currency : Currencies) {
+        for (Currency currency : CURRENCIES) {
             comboBox.getItems().add(currency.getName());
         }
         return comboBox;
