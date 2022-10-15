@@ -88,26 +88,16 @@ public class CurrencyConverter extends Application {
     }
 
     private Double convert(String input_CurrAbbr, String output_CurrAbbr, Double amount_Double) {
-        double output;
         Double exchangeValue = getExchangeValue(input_CurrAbbr, output_CurrAbbr);
-        output = amount_Double * exchangeValue;
-        return output;
+        return Currency.convert(amount_Double,exchangeValue);
     }
 
     private Double getExchangeValue(String input_CurrAbbr, String output_CurrAbbr) {
-        Double output = DEFAULT_EXCHANGEVALUE;
-        for (Currency currency : CURRENCIES) {
-            if (input_CurrAbbr.equals(currency.getAbbreviation())) {
-                HashMap<String, Double> exchangeValues = currency.getExchangeValues();
-                output = exchangeValues.get(output_CurrAbbr);
-            }
-        }
-        return output;
+        return Currency.getExchangeValue(input_CurrAbbr, output_CurrAbbr);
     }
 
     private void setOutput() {
-        String output_formatted = FORMAT.format(output_double);
-        output_TF.setText(output_formatted);
+        output_TF.setText(Currency.formatAmount(output_double));
     }
     //endregion
 
