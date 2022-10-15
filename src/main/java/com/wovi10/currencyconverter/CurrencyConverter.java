@@ -13,10 +13,10 @@ import java.util.HashMap;
 import static com.wovi10.currencyconverter.utils.CurrencyConstants.*;
 
 public class CurrencyConverter extends Application {
-    public Double input_int;
-    public Double output_int;
-    public TextField inputValuta;
-    public TextField outputValuta;
+    public Double input_double;
+    public Double output_double;
+    public TextField inputTxtField;
+    public TextField outputTxtField;
     ComboBox<Object> valutaFrom_CB;
     ComboBox<Object> valutaTo_CB;
 
@@ -38,8 +38,8 @@ public class CurrencyConverter extends Application {
         Button convertButton = createConvertButton();
         valutaFrom_CB = createFirstComboBox();
         valutaTo_CB = createSecondComboBox();
-        inputValuta = createInputField();
-        outputValuta = createOutputField();
+        inputTxtField = createInputField();
+        outputTxtField = createOutputField();
         addToForm(root, convertButton);
     }
 
@@ -66,7 +66,7 @@ public class CurrencyConverter extends Application {
     }
 
     private void setInput() {
-        input_int = Double.parseDouble(inputValuta.getText());
+        input_double = Double.parseDouble(inputTxtField.getText());
     }
 
     private void calculateConversion() {
@@ -84,7 +84,7 @@ public class CurrencyConverter extends Application {
         }
         String nameCurrencyInput = currencyInput.getAbbreviation();
         String nameCurrencyOutput = currencyOutput.getAbbreviation();
-        output_int = convert(nameCurrencyInput, nameCurrencyOutput, input_int);
+        output_double = convert(nameCurrencyInput, nameCurrencyOutput, input_double);
     }
 
     private Double convert(String nameCurrencyInput, String nameCurrencyOutput, Double amount) {
@@ -106,8 +106,8 @@ public class CurrencyConverter extends Application {
     }
 
     private void setOutput() {
-        String formatted_output = FORMAT.format(output_int);
-        outputValuta.setText(formatted_output);
+        String formatted_output = FORMAT.format(output_double);
+        outputTxtField.setText(formatted_output);
     }
     //endregion
 
@@ -164,9 +164,9 @@ public class CurrencyConverter extends Application {
 
     private void addToForm(Group root, Button convertButton) {
         root.getChildren().add(convertButton);
-        root.getChildren().add(inputValuta);
+        root.getChildren().add(inputTxtField);
         root.getChildren().add(valutaFrom_CB);
-        root.getChildren().add(outputValuta);
+        root.getChildren().add(outputTxtField);
         root.getChildren().add(valutaTo_CB);
     }
 }
