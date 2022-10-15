@@ -15,8 +15,8 @@ import static com.wovi10.currencyconverter.utils.CurrencyConstants.*;
 public class CurrencyConverter extends Application {
     public Double input_double;
     public Double output_double;
-    public TextField inputTxtField;
-    public TextField outputTxtField;
+    public TextField input_TF;
+    public TextField output_TF;
     ComboBox<Object> valutaFrom_CB;
     ComboBox<Object> valutaTo_CB;
 
@@ -26,34 +26,34 @@ public class CurrencyConverter extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        primaryStage.setTitle(PROGRAM_TITLE);
         Group root = new Group();
         Scene scene = new Scene(root, PROGRAM_WIDTH, PROGRAM_HEIGHT);
         setupForm(root);
+        primaryStage.setTitle(PROGRAM_TITLE);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
     private void setupForm(Group root) {
-        Button convertButton = createConvertButton();
+        Button convert_Btn = createConvertButton();
         valutaFrom_CB = createFirstComboBox();
         valutaTo_CB = createSecondComboBox();
-        inputTxtField = createInputField();
-        outputTxtField = createOutputField();
-        addToForm(root, convertButton);
+        input_TF = createInputField();
+        output_TF = createOutputField();
+        addToForm(root, convert_Btn);
     }
 
     //region Buttons
     private Button createConvertButton() {
-        Button convertButton = new Button();
-        createDefaultButton(convertButton);
-        convertButton.setOnAction(actionEvent ->
+        Button convert_Btn = new Button();
+        placeButtonOnPane(convert_Btn);
+        convert_Btn.setOnAction(actionEvent ->
                 convertInput()
         );
-        return convertButton;
+        return convert_Btn;
     }
 
-    private void createDefaultButton(Button button) {
+    private void placeButtonOnPane(Button button) {
         button.setLayoutX(STANDARD_INDENT + TEXTFIELD_WIDTH);
         button.setLayoutY(STANDARD_HEIGHT + 60);
         button.setText(CONVERT_TEXT);
@@ -66,48 +66,48 @@ public class CurrencyConverter extends Application {
     }
 
     private void setInput() {
-        input_double = Double.parseDouble(inputTxtField.getText());
+        input_double = Double.parseDouble(input_TF.getText());
     }
 
     private void calculateConversion() {
-        Currency currencyInput = defaultCurrency;
+        Currency input_Currency = defaultCurrency;
         for (Currency currency : Currencies) {
             if (currency.getName().equals(valutaFrom_CB.getValue())) {
-                currencyInput = currency;
+                input_Currency = currency;
             }
         }
-        Currency currencyOutput = defaultCurrency;
+        Currency output_Currency = defaultCurrency;
         for (Currency currency : Currencies) {
             if (currency.getName().equals(valutaTo_CB.getValue())) {
-                currencyOutput = currency;
+                output_Currency = currency;
             }
         }
-        String nameCurrencyInput = currencyInput.getAbbreviation();
-        String nameCurrencyOutput = currencyOutput.getAbbreviation();
-        output_double = convert(nameCurrencyInput, nameCurrencyOutput, input_double);
+        String input_CurrAbbr = input_Currency.getAbbreviation();
+        String output_CurrAbbr = output_Currency.getAbbreviation();
+        output_double = convert(input_CurrAbbr, output_CurrAbbr, input_double);
     }
 
-    private Double convert(String nameCurrencyInput, String nameCurrencyOutput, Double amount) {
+    private Double convert(String input_CurrAbbr, String output_CurrAbbr, Double amount_Double) {
         double output;
-        Double exchangeValue = getExchangeValue(nameCurrencyInput, nameCurrencyOutput);
-        output = amount * exchangeValue;
+        Double exchangeValue = getExchangeValue(input_CurrAbbr, output_CurrAbbr);
+        output = amount_Double * exchangeValue;
         return output;
     }
 
-    private Double getExchangeValue(String abbreviationInput, String abbreviationOutput) {
+    private Double getExchangeValue(String input_CurrAbbr, String output_CurrAbbr) {
         Double output = DEFAULT_EXCHANGEVALUE;
         for (Currency currency : Currencies) {
-            if (abbreviationInput.equals(currency.getAbbreviation())) {
+            if (input_CurrAbbr.equals(currency.getAbbreviation())) {
                 HashMap<String, Double> exchangeValues = currency.getExchangeValues();
-                output = exchangeValues.get(abbreviationOutput);
+                output = exchangeValues.get(output_CurrAbbr);
             }
         }
         return output;
     }
 
     private void setOutput() {
-        String formatted_output = FORMAT.format(output_double);
-        outputTxtField.setText(formatted_output);
+        String output_formatted = FORMAT.format(output_double);
+        output_TF.setText(output_formatted);
     }
     //endregion
 
@@ -123,9 +123,9 @@ public class CurrencyConverter extends Application {
     }
 
     private ComboBox<Object> createComboBox(int layoutY) {
-        ComboBox<Object> valutaComboBox = new ComboBox<>();
-        placeComboBoxOnPane(valutaComboBox, layoutY);
-        return valutaComboBox;
+        ComboBox<Object> comboBox = new ComboBox<>();
+        placeComboBoxOnPane(comboBox, layoutY);
+        return comboBox;
     }
 
     private void placeComboBoxOnPane(ComboBox<Object> comboBox, int layoutY) {
@@ -148,25 +148,29 @@ public class CurrencyConverter extends Application {
     }
 
     private TextField createOutputField() {
-        TextField outputTextField = createDefaultTextField(STANDARD_HEIGHT + 30);
-        outputTextField.setEditable(false);
-        return outputTextField;
+        TextField textField = createDefaultTextField(STANDARD_HEIGHT + 30);
+        textField.setEditable(false);
+        return textField;
     }
 
     private TextField createDefaultTextField(int layoutY) {
         TextField defaultTextField = new TextField();
+        placeTextFieldOnPane(layoutY, defaultTextField);
+        return defaultTextField;
+    }
+
+    private static void placeTextFieldOnPane(int layoutY, TextField defaultTextField) {
         defaultTextField.setLayoutX(STANDARD_INDENT);
         defaultTextField.setLayoutY(layoutY);
         defaultTextField.setPrefWidth(TEXTFIELD_WIDTH);
-        return defaultTextField;
     }
     //endregion
 
     private void addToForm(Group root, Button convertButton) {
         root.getChildren().add(convertButton);
-        root.getChildren().add(inputTxtField);
+        root.getChildren().add(input_TF);
         root.getChildren().add(valutaFrom_CB);
-        root.getChildren().add(outputTxtField);
+        root.getChildren().add(output_TF);
         root.getChildren().add(valutaTo_CB);
     }
 }
